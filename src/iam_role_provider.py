@@ -1,3 +1,5 @@
+"""Module that provides methods to control the lifecycle of IAM role resources."""
+
 from typing import Any
 from src.iam_client import IamClient
 

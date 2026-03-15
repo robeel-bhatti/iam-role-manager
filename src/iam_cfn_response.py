@@ -1,3 +1,5 @@
+"Helper module to respond to CloudFormation after processing request."
+
 import urllib3
 import json
 import re

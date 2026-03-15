@@ -1,7 +1,6 @@
 from mypy_boto3_iam import IAMClient
 from mypy_boto3_iam.type_defs import (
     CreateRoleResponseTypeDef,
-    GetRolePolicyResponseTypeDef,
     GetRoleResponseTypeDef,
     ListAttachedRolePoliciesResponseTypeDef,
     ListRolePoliciesResponseTypeDef,
@@ -9,6 +8,10 @@ from mypy_boto3_iam.type_defs import (
 
 
 class IamClient:
+    """
+    Class responsible for all AWS API operations to IAM.
+    """
+
     def __init__(self, client: IAMClient) -> None:
         self.client = client
 
