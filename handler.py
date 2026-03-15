@@ -19,14 +19,15 @@ class RequestType(Enum):
 def handler(event, context) -> None:
     request_type = event["RequestType"]
     props = event["ResourceProperties"]
+    physical_resource_id = props.get("RoleName")
     status = SUCCESS
     response_data = None
-    physical_resource_id = props.get(
-        "RoleName", "unknown"
-    )  # TODO: if none, it should be handled as an exception.
     reason = None
 
     try:
+        if physical_resource_id is None:
+            raise ValueError("RoleName property must not be null.")
+
         if request_type == RequestType.CREATE.value:
             response_data = create(props, iam)
 
