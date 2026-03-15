@@ -41,6 +41,10 @@ def handler(event, context) -> None:
             status = FAILED
             reason = f"Unsupported request type: {request_type}"
 
+    except KeyError as e:
+        status = FAILED
+        reason = f"{e.args[0]} is missing or null"
+
     except ClientError as e:
         status = FAILED
         reason = f"{e.response['Error']['Code']}: {e.response['Error']['Message']}"
