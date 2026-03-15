@@ -82,5 +82,5 @@ def validate_inline_policies(inline_policies: list[Any]) -> None:
                     raise ValueError(f"Star action found in policy '{policy_name}'")
 
                 service = action.split(":")[0]
-                if service in BLACKLIST:
+                if service.lower() in BLACKLIST:
                     raise ValueError(f"invalid inline policy requested: {policy_name}")
