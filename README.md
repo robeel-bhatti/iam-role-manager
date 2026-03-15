@@ -2,6 +2,7 @@
 
 A CloudFormation custom resource backed by AWS Lambda that automates the creation and management of IAM roles and policies with validation logic beyond what native CloudFormation IAM resources support.
 
+
 ## Overview
 
 CloudFormation's built-in IAM resources (`AWS::IAM::Role`, `AWS::IAM::Policy`) provide straightforward role provisioning but offer no guardrails around what gets created. 

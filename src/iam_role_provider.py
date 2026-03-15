@@ -7,6 +7,13 @@ from src.iam_client import IamClient
 def create(props: dict[str, Any], iam_client: IamClient) -> dict[str, str]:
     arn = None
     role_name = None
+
+    res = iam_client.create_role(
+        props["RoleName"],
+        props["AssumeRolePolicyDocument"],
+        props["Description"],
+        props["Tags"],
+    )
     return {"RoleArn": arn, "RoleName": role_name}
 
 
