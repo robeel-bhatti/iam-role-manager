@@ -1,6 +1,7 @@
 from mypy_boto3_iam import IAMClient
 from mypy_boto3_iam.type_defs import (
     CreateRoleResponseTypeDef,
+    GetPolicyResponseTypeDef,
     GetRoleResponseTypeDef,
     ListAttachedRolePoliciesResponseTypeDef,
     ListRolePoliciesResponseTypeDef,
@@ -69,3 +70,6 @@ class IamClient:
         self, role_name: str
     ) -> ListRolePoliciesResponseTypeDef:
         return self.client.list_role_policies(role_name)
+
+    def get_managed_policy(self, policy_arn: str) -> GetPolicyResponseTypeDef:
+        return self.client.get_policy(PolicyArn=policy_arn)
