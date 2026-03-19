@@ -3,7 +3,7 @@ from enum import Enum
 
 from botocore.exceptions import ClientError
 from src.iam_client import IamClient
-from src.iam_role_provider import create, delete, update
+from src.iam_role_provider import RoleProvider
 from src.iam_cfn_response import send, SUCCESS, FAILED
 
 
@@ -19,7 +19,7 @@ class RequestType(Enum):
 def handler(event, context) -> None:
     request_type = event["RequestType"]
     props = event["ResourceProperties"]
-    physical_resource_id = props.get("RoleName")
+    physical_resource_id = props.get("PhysicalResourceId") or props.get("RoleName")
     status = SUCCESS
     response_data = None
     reason = None
@@ -28,14 +28,16 @@ def handler(event, context) -> None:
         if physical_resource_id is None:
             raise ValueError("RoleName property must not be null.")
 
+        role_provider = RoleProvider(props, iam)
+
         if request_type == RequestType.CREATE.value:
-            response_data = create(props, iam)
+            response_data = role_provider.create()
 
         elif request_type == RequestType.UPDATE.value:
-            response_data = update(props, iam)
+            response_data = role_provider.update()
 
         elif request_type == RequestType.DELETE.value:
-            delete(props, iam)
+            role_provider.delete()
 
         else:
             status = FAILED

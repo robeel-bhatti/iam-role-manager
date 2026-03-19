@@ -73,3 +73,14 @@ class IamClient:
 
     def get_managed_policy(self, policy_arn: str) -> GetPolicyResponseTypeDef:
         return self.client.get_policy(PolicyArn=policy_arn)
+
+    def update_assume_role_policy_document(
+        self, role_name: str, policy_document: str
+    ) -> None:
+        self.client.update_assume_role_policy_document(role_name, policy_document)
+
+    def update_description(self, role_name: str, description: str) -> None:
+        self.client.update_role_description(role_name, description)
+
+    def detach_tags(self, role_name: str, tag_keys: list[str]) -> None:
+        self.client.untag_role(role_name, tag_keys)
